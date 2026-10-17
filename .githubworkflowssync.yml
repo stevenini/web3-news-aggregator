@@ -1,0 +1,35 @@
+name: Auto Sync Web3 News
+
+on:
+  schedule:
+    - cron: '0 0,12 * * *' # 每天 UTC 时间 0点和12点（即北京时间 8点和20点）自动运行
+  workflow_dispatch: # 支持在 GitHub 后台手动点击触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: 安装依赖
+        run: |
+          pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # 确保安装了脚本所需的第三方库
+          pip install feedparser google-genai supabase requests
+
+      - name: 执行同步与清洗脚本
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python sync_feeds.py
