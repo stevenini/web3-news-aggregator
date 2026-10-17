@@ -27,7 +27,7 @@ jobs:
       - name: 执行同步与清洗脚本
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          LLM_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python sync_feeds.py
