@@ -21,7 +21,7 @@ jobs:
       - name: 安装依赖
         run: |
           pip install --upgrade pip
-          pip install feedparser google-genai supabase requests
+          pip install feedparser google-genai supabase requests openai
 
       - name: 执行同步与清洗脚本
         env:
