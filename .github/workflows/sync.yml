@@ -31,3 +31,12 @@ jobs:
           LLM_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python sync_feeds.py
+
+                # 找一下你原来的代码，大概是这样的：
+      - name: Run sync script
+        run: python sync_feeds.py
+
+      # 在它的下面加上这段（注意缩进对齐）：
+      - name: Trigger Cloudflare Pages Deployment
+        run: |
+          curl -X POST "${{ secrets.CF_DEPLOY_HOOK }}"
