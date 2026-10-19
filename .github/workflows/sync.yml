@@ -23,7 +23,6 @@ jobs:
           pip install --upgrade pip
           pip install feedparser google-genai supabase requests openai python-dotenv
 
-
       - name: 执行同步与清洗脚本
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -32,11 +31,6 @@ jobs:
         run: |
           python sync_feeds.py
 
-                # 找一下你原来的代码，大概是这样的：
-      - name: Run sync script
-        run: python sync_feeds.py
-
-      # 在它的下面加上这段（注意缩进对齐）：
       - name: Trigger Cloudflare Pages Deployment
         run: |
           curl -X POST "${{ secrets.CF_DEPLOY_HOOK }}"
