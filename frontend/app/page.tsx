@@ -35,7 +35,7 @@ async function NewsList() {
         )
       )
     `)
-    .order('id', { ascending: false })
+    .order('created_at', { ascending: false })
 
   if (error) {
     console.error('获取聚合数据失败:', error)
